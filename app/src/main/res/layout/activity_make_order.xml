@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MakeOrderActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/brand_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Now"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <RelativeLayout
+                android:id="@+id/firstRelLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/detailsNewItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Grocery"
+                    android:padding="8dp"
+                    android:background= "@drawable/little_curve_border"
+                    android:layout_margin="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="italic" />
+                <!--new items rec view-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/groceryRecView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/detailsNewItems"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal"/>
+
+
+                <TextView
+                    android:id="@+id/detailsPopular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/groceryRecView"
+                    android:layout_marginTop="15dp"
+                    android:text="popular items"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:background= "@drawable/little_curve_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textStyle="italic" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pupSpecialItemsRecView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsPopular"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal"/>
+
+                <TextView
+                    android:id="@+id/detailsSuggested"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pupSpecialItemsRecView"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="suggested"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:background= "@drawable/little_curve_border"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/beautyItemsRecViewiew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_below="@+id/detailsSuggested"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"/>
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

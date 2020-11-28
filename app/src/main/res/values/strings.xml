@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PUPS</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //////////////Facebook configure/////////////////////////////
+    <string name="facebook_app_id">694433887944058</string>
+    <string name="fb_login_protocol_scheme">fb694433887944058</string>
+
+
+    <string name="demo_verification_text"> If you got 6 digit verification number! <br></br> Than please paste it bellow!</string>
+    <string name="googleRequestClientId">962466355829-gf33re4asdjr1j9lk8vsr6m4ltfogc2g.apps.googleusercontent.com</string>
+
+</resources>

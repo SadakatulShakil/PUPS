@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "962466355829",
+    "firebase_url": "https://pups-483b3.firebaseio.com",
+    "project_id": "pups-483b3",
+    "storage_bucket": "pups-483b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962466355829:android:4a19ed3cefa5bd3a81763c",
+        "android_client_info": {
+          "package_name": "com.astronist.pups"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962466355829-gf33re4asdjr1j9lk8vsr6m4ltfogc2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1Y1RtRPQ4kkC9R9v8vUkOS9Vq2uM7pDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962466355829-gf33re4asdjr1j9lk8vsr6m4ltfogc2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
