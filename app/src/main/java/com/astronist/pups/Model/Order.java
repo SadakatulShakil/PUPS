@@ -8,6 +8,8 @@ public class Order {
     private String contact;
     private String location;
     private String productName;
+    private String unit;
+    private String currency;
     private String productQuantity;
     private String totalPrice;
 
@@ -17,8 +19,9 @@ public class Order {
     public Order(String userId, String time,
                  String date, String name,
                  String contact, String location,
-                 String productName,
-                 String productQuantity, String totalPrice) {
+                 String productName, String unit,
+                 String currency, String productQuantity,
+                 String totalPrice) {
         this.userId = userId;
         this.time = time;
         this.date = date;
@@ -26,6 +29,8 @@ public class Order {
         this.contact = contact;
         this.location = location;
         this.productName = productName;
+        this.unit = unit;
+        this.currency = currency;
         this.productQuantity = productQuantity;
         this.totalPrice = totalPrice;
     }
@@ -84,6 +89,22 @@ public class Order {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public String getProductQuantity() {
