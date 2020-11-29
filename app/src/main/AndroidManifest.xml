@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PUPS">
-        <activity android:name=".MakeOrderActivity"></activity>
+        <activity android:name=".OrderConfirmationActivity"></activity>
+        <activity android:name=".MakeOrderActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -48,7 +48,7 @@ public class FragmentMenuContainerActivity extends AppCompatActivity {
                        break;
 
                    case R.id.order:
-                       selectedFragment = new OrderFragment();
+                       selectedFragment = new OrderHistoryFragment();
                        break;
 
                    case R.id.account:

@@ -58,4 +58,7 @@ dependencies {
 //Times ForMater
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
     implementation 'com.facebook.android:facebook-login:8.1.0'
+    ///////slider uses//////
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }

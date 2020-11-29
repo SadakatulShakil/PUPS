@@ -53,7 +53,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:textStyle="italic" />
-                <!--new items rec view-->
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/groceryRecView"
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/groceryRecView"
                     android:layout_marginTop="15dp"
-                    android:text="popular items"
+                    android:text="Popular items"
                     android:textSize="16sp"
                     android:padding="8dp"
                     android:textColor="@color/black"
@@ -79,7 +79,16 @@
                     android:layout_marginRight="8dp"
                     android:textStyle="italic" />
 
-                <androidx.recyclerview.widget.RecyclerView
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="70dp"
+                    android:paddingRight="70dp"
+                    android:layout_below="@+id/detailsPopular"/>
+
+               <!-- <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/pupSpecialItemsRecView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,16 +97,16 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:orientation="horizontal"/>
-
+-->
                 <TextView
                     android:id="@+id/detailsSuggested"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/pupSpecialItemsRecView"
+                    android:layout_below="@+id/viewPagerImage"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="suggested"
+                    android:text="Recent"
                     android:padding="8dp"
                     android:textColor="@color/black"
                     android:background= "@drawable/little_curve_border"

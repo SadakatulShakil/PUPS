@@ -4,27 +4,30 @@ public class Order {
     private String userId;
     private String time;
     private String date;
+    private String name;
     private String contact;
     private String location;
     private String productName;
     private String productQuantity;
-    private String productPrice;
+    private String totalPrice;
 
     public Order() {
     }
 
     public Order(String userId, String time,
-                 String date, String contact,
-                 String location, String productName,
-                 String productQuantity, String productPrice) {
+                 String date, String name,
+                 String contact, String location,
+                 String productName,
+                 String productQuantity, String totalPrice) {
         this.userId = userId;
         this.time = time;
         this.date = date;
+        this.name = name;
         this.contact = contact;
         this.location = location;
         this.productName = productName;
         this.productQuantity = productQuantity;
-        this.productPrice = productPrice;
+        this.totalPrice = totalPrice;
     }
 
     public String getUserId() {
@@ -49,6 +52,14 @@ public class Order {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getContact() {
@@ -83,11 +94,11 @@ public class Order {
         this.productQuantity = productQuantity;
     }
 
-    public String getProductPrice() {
-        return productPrice;
+    public String getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

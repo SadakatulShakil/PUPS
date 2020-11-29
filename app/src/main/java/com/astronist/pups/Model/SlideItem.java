@@ -2,7 +2,7 @@ package com.astronist.pups.Model;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class SlideItem implements Serializable {
     private int profileImage;
     private String titleName;
     private String price;
@@ -10,10 +10,10 @@ public class Product implements Serializable {
     private String currency;
     private String status;
 
-    public Product() {
+    public SlideItem() {
     }
 
-    public Product(int profileImage, String titleName, String price, String unit, String currency, String status) {
+    public SlideItem(int profileImage, String titleName, String price, String unit, String currency, String status) {
         this.profileImage = profileImage;
         this.titleName = titleName;
         this.price = price;

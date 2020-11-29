@@ -11,39 +11,39 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.astronist.pups.Model.Product;
+import com.astronist.pups.Model.SlideItem;
 import com.astronist.pups.OrderConfirmationActivity;
 import com.astronist.pups.R;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.viewHolder> {
+public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.viewHolder> {
+
     private Context context;
-    private ArrayList<Product> groceryArrayList;
+    private ArrayList<SlideItem> slideItemArrayList;
 
-    public ProductAdapter(Context context, ArrayList<Product> productArray) {
+    public SliderAdapter(Context context, ArrayList<SlideItem> slideItemArrayList) {
         this.context = context;
-        this.groceryArrayList = productArray;
+        this.slideItemArrayList = slideItemArrayList;
     }
 
     @NonNull
     @Override
-    public ProductAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_view, parent, false);
-        return new ProductAdapter.viewHolder(v);
+    public SliderAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_product_view, parent, false);
+        return new SliderAdapter.viewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductAdapter.viewHolder holder, int position) {
-        final Product product = groceryArrayList.get(position);
-        String title = product.getTitleName();
-        String price = product.getPrice();
-        String status = product.getStatus();
-        String unit = product.getUnit();
-        String currency = product.getCurrency();
+    public void onBindViewHolder(@NonNull SliderAdapter.viewHolder holder, int position) {
+        final SlideItem  slideItem = slideItemArrayList.get(position);
+        String title = slideItem.getTitleName();
+        String price = slideItem.getPrice();
+        String status = slideItem.getStatus();
+        String unit = slideItem.getUnit();
+        String currency = slideItem.getCurrency();
 
-        holder.productImage.setImageResource(product.getProfileImage());
+        holder.sliderImage.setImageResource(slideItem.getProfileImage());
         holder.productName.setText(title);
         holder.productPrice.setText(price);
         holder.status.setText(status);
@@ -54,30 +54,29 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.viewHold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderConfirmationActivity.class);
-                intent.putExtra("itemInfoRev", product);
+                intent.putExtra("itemInfoSd", slideItem);
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        return groceryArrayList.size();
+        return slideItemArrayList.size();
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        private ImageView productImage;
+        private ImageView sliderImage;
         private TextView productName, productPrice, status, unit, currency;
-
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.productImage);
+            sliderImage = itemView.findViewById(R.id.image_slider);
             productName = itemView.findViewById(R.id.productTitle);
             productPrice = itemView.findViewById(R.id.productUnitPrice);
             status = itemView.findViewById(R.id.availability);
             unit = itemView.findViewById(R.id.unit);
             currency = itemView.findViewById(R.id.currency);
-
         }
     }
 }
