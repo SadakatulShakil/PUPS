@@ -55,6 +55,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.viewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderConfirmationActivity.class);
                 intent.putExtra("itemInfoSd", slideItem);
+                intent.putExtra("category", "special");
                 context.startActivity(intent);
             }
         });

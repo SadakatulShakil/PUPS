@@ -55,6 +55,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.viewHold
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderConfirmationActivity.class);
                 intent.putExtra("itemInfoRev", product);
+                intent.putExtra("category", "notSpecial");
                 context.startActivity(intent);
             }
         });

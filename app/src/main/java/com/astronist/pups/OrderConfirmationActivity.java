@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +37,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private SlideItem slideItem;
     private Product product;
     private ImageView proImage;
-    private TextView quantity, amount, title, titleAmount, status, unit, demoUnit, currency;
+    private TextView quantity, amount, title, titleAmount, status, unit, demoUnit, currency, loosieQuantity, loosieAmount;
     private EditText name, phone, dohsName, houseNo, roadNo;
     private FloatingActionButton plus, minus;
     private ExtendedFloatingActionButton cartBtn, orderBtn;
@@ -45,6 +48,13 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private DatabaseReference orderReference;
     public static final String TAG = "Order";
     private ProgressBar progressBar;
+    private String category;
+    private RadioGroup optionGroup, loosieGroup, categoryGroup;
+    private RadioButton regRB, swRB, ltRB;
+    private LinearLayout loosieDetailsLay, packetLay, increDcreLay;
+    private String brandOptionType="", loosieType, loosAmount, mainType="Product";
+    private int bandson = 15, marlboro = 15, goldleaf = 10, danhill= 18, hollywood = 6, lAmount;
+    private Order order;
 
 
     @Override
@@ -58,6 +68,16 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         slideItem = (SlideItem) intent.getSerializableExtra("itemInfoSd");
         product = (Product) intent.getSerializableExtra("itemInfoRev");
+        category = intent.getStringExtra("category");
+
+        if(category.equals("special")){
+            ///////cigarate category////////
+            categoryGroup.setVisibility(View.VISIBLE);
+        }else{
+            categoryGroup.setVisibility(View.GONE);
+            packetLay.setVisibility(View.VISIBLE);
+            increDcreLay.setVisibility(View.VISIBLE);
+        }
 
         if (slideItem != null) {
             proImage.setImageResource(slideItem.getProfileImage());
@@ -111,10 +131,148 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                goToOrderSetup();
+                goToOrderSetup(mainType, brandOptionType);
             }
         });
 
+        ////////////////Radio group Work flow///////////////////
+
+        if(title.getText().toString().trim().equals("Danhill")){
+            swRB.setClickable(false);
+            ltRB.setClickable(false);
+        }
+        if(title.getText().toString().trim().equals("Hollywood")){
+            swRB.setClickable(false);
+            ltRB.setClickable(false);
+        }
+
+        categoryGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton categoryType = (RadioButton)categoryGroup.findViewById(categoryGroup.getCheckedRadioButtonId());
+                mainType = (String) categoryType.getText();
+                optionGroup.setVisibility(View.VISIBLE);
+            }
+        });
+
+        optionGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton optionType = (RadioButton)optionGroup.findViewById(optionGroup.getCheckedRadioButtonId());
+                brandOptionType = (String) optionType.getText();
+                goToNextOption(brandOptionType);
+                //Toast.makeText(OrderConfirmationActivity.this, "Brand Selected : "+brandOptionType.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        loosieGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton loosieOption = (RadioButton)loosieGroup.findViewById(loosieGroup.getCheckedRadioButtonId());
+                loosieType = (String) loosieOption.getText();
+                goToAnotherOption(loosieType, title.getText().toString().trim());
+               // Toast.makeText(OrderConfirmationActivity.this, "Brand Selected : "+loosieType.toString().trim(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+    }
+
+    private void goToAnotherOption(String loosieType, String title) {
+        if(loosieType.equals("5 pieces")){
+            /////do for 5 pieces////
+            loosieQuantity.setText("5");
+            if(title.equals("Benson")){
+                lAmount = 5*bandson;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Marlboro")){
+                lAmount = 5*marlboro;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Danhill")){
+                lAmount = 5*danhill;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Gold leaf")){
+                lAmount = 5*goldleaf;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Hollywood")){
+                lAmount = 5*hollywood;
+                loosAmount = String.valueOf(lAmount);
+            }else{
+                lAmount = 5*bandson;
+                loosAmount = String.valueOf(lAmount);
+            }
+            loosieAmount.setText(loosAmount);
+
+        }else if(loosieType.equals("10 pieces")){
+            /////do for 10 pieces////
+            loosieQuantity.setText("10");
+            if(title.equals("Benson")){
+                lAmount = 10*bandson;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Marlboro")){
+                lAmount = 10*marlboro;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Danhill")){
+                lAmount = 10*danhill;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Gold leaf")){
+                lAmount = 10*goldleaf;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Hollywood")){
+                lAmount = 10*hollywood;
+                loosAmount = String.valueOf(lAmount);
+            }else{
+                lAmount = 10*bandson;
+                loosAmount = String.valueOf(lAmount);
+            }
+            loosieAmount.setText(loosAmount);
+
+        }else if(loosieType.equals("15 pieces")){
+            /////do for 15 pieces////
+            loosieQuantity.setText("15");
+            if(title.equals("Benson")){
+                lAmount = 15*bandson;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Marlboro")){
+                lAmount = 15*marlboro;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Danhill")){
+                lAmount = 15*danhill;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Gold leaf")){
+                lAmount = 15*goldleaf;
+                loosAmount = String.valueOf(lAmount);
+            }else if(title.equals("Hollywood")){
+                lAmount = 15*hollywood;
+                loosAmount = String.valueOf(lAmount);
+            }else{
+                lAmount = 15*bandson;
+                loosAmount = String.valueOf(lAmount);
+            }
+            loosieAmount.setText(loosAmount);
+
+        }
+
+    }
+
+
+    private void goToNextOption(String brandOptionType) {
+        if(brandOptionType.equals("Packet")){
+            packetLay.setVisibility(View.VISIBLE);
+            increDcreLay.setVisibility(View.VISIBLE);
+            loosieDetailsLay.setVisibility(View.GONE);
+            loosieGroup.setVisibility(View.GONE);
+        }
+        else{
+            packetLay.setVisibility(View.GONE);
+            increDcreLay.setVisibility(View.GONE);
+            loosieDetailsLay.setVisibility(View.VISIBLE);
+            loosieGroup.setVisibility(View.VISIBLE);
+
+        }
 
     }
 
@@ -124,7 +282,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         amount.setText(totalPrice);
     }
 
-    private void goToOrderSetup() {
+    private void goToOrderSetup(String mainType, String brandOptionType) {
         String uName = name.getText().toString().trim();
         String uPhone = phone.getText().toString().trim();
         String uDohsName = dohsName.getText().toString().trim();
@@ -160,12 +318,15 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         }
 
         storeOrderDetails(uName, uPhone, location, title.getText().toString().trim(), unit.getText().toString().trim(),
-                currency.getText().toString().trim(), quantity.getText().toString().trim(), amount.getText().toString().trim());
+                currency.getText().toString().trim(), quantity.getText().toString().trim(), amount.getText().toString().trim(),
+                loosieQuantity.getText().toString().trim(), loosieAmount.getText().toString().trim(), mainType, brandOptionType);
 
     }
 
     private void storeOrderDetails(final String uName, final String uPhone, final String location, final String title,
-                                   final String unit, final String currency, final String quantity, final String amount) {
+                                   String unit, final String currency, String quantity, String amount,
+                                   final String loosieQuantity, final String loosieAmount,
+                                   final String mainType, final String brandOptionType) {
 
         if (firebaseAuth != null) {
             userId = user.getUid();
@@ -181,8 +342,12 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
         orderReference = FirebaseDatabase.getInstance().getReference().child("Order").child(monthName);
         String pushId = orderReference.push().getKey();
-
-        Order order = new Order(userId, currentTime, currentDate, uName, uPhone, location, title, unit, currency, quantity, amount);
+        if(brandOptionType.equals("Loosie")){
+            amount = loosieAmount;
+            quantity = loosieQuantity;
+            unit = "Loosie";
+        }
+        order = new Order(userId, currentTime, currentDate, uName, uPhone, location, title, unit, currency, quantity, amount, mainType );
 
         orderReference.child(pushId).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -223,6 +388,20 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         currency = findViewById(R.id.currency);
 
         progressBar = findViewById(R.id.progressBar);
+
+        optionGroup = findViewById(R.id.optionRGroup);
+        loosieGroup = findViewById(R.id.loosieRGroup);
+        categoryGroup = findViewById(R.id.categoryRGroup);
+
+        regRB = findViewById(R.id.regularRb);
+        swRB = findViewById(R.id.switchRb);
+        ltRB = findViewById(R.id.liteRb);
+
+        packetLay = findViewById(R.id.packetLay);
+        loosieDetailsLay = findViewById(R.id.loosieDetailsLay);
+        increDcreLay = findViewById(R.id.incrementLay);
+        loosieQuantity = findViewById(R.id.loosieQuantity);
+        loosieAmount = findViewById(R.id.loosieAmountTv);
 
 
     }

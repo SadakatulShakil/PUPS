@@ -1,6 +1,8 @@
 package com.astronist.pups.Model;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable {
     private String userId;
     private String time;
     private String date;
@@ -12,16 +14,14 @@ public class Order {
     private String currency;
     private String productQuantity;
     private String totalPrice;
-
+    private String category;
     public Order() {
     }
 
-    public Order(String userId, String time,
-                 String date, String name,
-                 String contact, String location,
-                 String productName, String unit,
-                 String currency, String productQuantity,
-                 String totalPrice) {
+    public Order(String userId, String time, String date,
+                 String name, String contact, String location,
+                 String productName, String unit, String currency,
+                 String productQuantity, String totalPrice, String category) {
         this.userId = userId;
         this.time = time;
         this.date = date;
@@ -33,6 +33,7 @@ public class Order {
         this.currency = currency;
         this.productQuantity = productQuantity;
         this.totalPrice = totalPrice;
+        this.category = category;
     }
 
     public String getUserId() {
@@ -121,5 +122,13 @@ public class Order {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
