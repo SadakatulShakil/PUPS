@@ -2,7 +2,7 @@ package com.astronist.pups.Model;
 
 import java.io.Serializable;
 
-public class Order implements Serializable {
+public class CartList implements Serializable {
     private String userId;
     private String pushId;
     private String time;
@@ -16,14 +16,15 @@ public class Order implements Serializable {
     private String productQuantity;
     private String totalPrice;
     private String category;
-    public Order() {
+    public CartList() {
     }
 
-    public Order(String userId, String pushId, String time,
-                 String date, String name, String contact,
-                 String location, String productName,
-                 String unit, String currency,
-                 String productQuantity, String totalPrice, String category) {
+    public CartList(String userId, String pushId,
+                    String time, String date, String name,
+                    String contact, String location,
+                    String productName, String unit,
+                    String currency, String productQuantity,
+                    String totalPrice, String category) {
         this.userId = userId;
         this.pushId = pushId;
         this.time = time;

@@ -17,10 +17,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.astronist.pups.Model.Address;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -34,9 +40,10 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser user;
     private TextView logOutBt;
     private ImageView profileImage;
-    private TextView userName, userEmail, userPhone, userImage;
+    private TextView userName, userEmail, userPhone, userLocation;
     private GoogleSignInAccount googleSignInAccount;
     private LoginResult loginResult;
+    private DatabaseReference userInfoRef;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -94,6 +101,40 @@ public class ProfileFragment extends Fragment {
                 context.startActivity(intent);
             }
         });
+
+        getAuthUserData();
+    }
+
+    private void getAuthUserData() {
+
+        userInfoRef = FirebaseDatabase.getInstance().getReference().child("Address");
+        userInfoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    Address addressInfo = userSnapshot.getValue(Address.class);
+
+
+                        if (user.getUid().equals(addressInfo.getUserId())) {
+                            if(addressInfo!= null){
+                            userPhone.setText(addressInfo.getCustomerPhone());
+                            userLocation.setText(addressInfo.getCustomerDohsName()+","+addressInfo.getCustomerHouseNo()
+                                    +","+addressInfo.getCustomerRoadNo());
+
+                        }else{
+                                userName.setText("Update your contact");
+                                userLocation.setText("Update your Location");
+                            }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void inItView(View view) {
@@ -102,5 +143,6 @@ public class ProfileFragment extends Fragment {
         userEmail = view.findViewById(R.id.userEmail);
         userPhone = view.findViewById(R.id.userContact);
         profileImage = view.findViewById(R.id.profileImage);
+        userLocation = view.findViewById(R.id.userLocation);
     }
 }

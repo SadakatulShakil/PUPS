@@ -9,12 +9,23 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.astronist.pups.Adapter.ProductAdapter;
 import com.astronist.pups.Adapter.SliderAdapter;
+import com.astronist.pups.Model.CartList;
 import com.astronist.pups.Model.Product;
 import com.astronist.pups.Model.SlideItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -22,11 +33,18 @@ public class MakeOrderActivity extends AppCompatActivity {
 
     private RecyclerView groceryRecView, specialRecView, beautyRecView;
     private ViewPager2 viewPager2;
+    private RelativeLayout cartItemLay;
     private ArrayList<Product> groceryProductList = new ArrayList<>();
     //private ArrayList<SlideItem> slideImageList = new ArrayList<>();
     private ArrayList<SlideItem> specialProductList = new ArrayList<>();
     private ArrayList<Product> beautyProductList = new ArrayList<>();
     private ProductAdapter mProductAdapter;
+    public static final String TAG = "MakeOrder";
+    private ArrayList<CartList> cartListArrayList = new ArrayList<>();
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
+    private DatabaseReference cartReference;
+    private TextView cartItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +56,8 @@ public class MakeOrderActivity extends AppCompatActivity {
         beautyList();
         inItView();
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
         mProductAdapter = new ProductAdapter(MakeOrderActivity.this, groceryProductList);
         groceryRecView.setLayoutManager(new LinearLayoutManager(MakeOrderActivity.this, RecyclerView.HORIZONTAL, false));
         groceryRecView.setAdapter(mProductAdapter);
@@ -70,6 +90,38 @@ public class MakeOrderActivity extends AppCompatActivity {
         beautyRecView.setAdapter(mProductAdapter);
         mProductAdapter.notifyDataSetChanged();
 
+        getCartItemCount();
+
+    }
+
+    private void getCartItemCount() {
+        String userId = user.getUid();
+        cartReference = FirebaseDatabase.getInstance().getReference().child("Cart List").child(userId);
+
+        cartReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cartListArrayList.clear();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    CartList cartList = userSnapshot.getValue(CartList.class);
+
+                    cartListArrayList.add(cartList);
+                    Log.d(TAG, "onDataChange: "+ cartListArrayList.size());
+                    if(cartListArrayList.size()<1){
+                        cartItemCount.setVisibility(View.GONE);
+                    }else{
+                        String cartCount = String.valueOf(cartListArrayList.size());
+                        cartItemCount.setText(cartCount);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
    /* private void sliderImageList() {
@@ -138,5 +190,7 @@ public class MakeOrderActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.viewPagerImage);
         //specialRecView = findViewById(R.id.pupSpecialItemsRecView);
         beautyRecView = findViewById(R.id.beautyItemsRecViewiew);
+        cartItemLay = findViewById(R.id.auctionNotificationAction);
+        cartItemCount = findViewById(R.id.notificationCountTv);
     }
 }
