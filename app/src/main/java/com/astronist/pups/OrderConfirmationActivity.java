@@ -2,7 +2,6 @@ package com.astronist.pups;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.astronist.pups.Model.Address;
 import com.astronist.pups.Model.CartList;
 import com.astronist.pups.Model.Order;
@@ -156,9 +154,9 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 /////////Do work for multiple order in cart/////////////////
                 checkCart++;
-                if(checkCart==1){
-                goToCartProductSetUp(mainType, brandOptionType);
-                }else{
+                if (checkCart == 1) {
+                    goToCartProductSetUp(mainType, brandOptionType);
+                } else {
                     Toast.makeText(OrderConfirmationActivity.this, "This Prouct is already in Cart!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -230,10 +228,10 @@ public class OrderConfirmationActivity extends AppCompatActivity {
                     CartList cartList = userSnapshot.getValue(CartList.class);
 
                     cartListArrayList.add(cartList);
-                    Log.d(TAG, "onDataChange: "+ cartListArrayList.size());
-                    if(cartListArrayList.size()<1){
+                    Log.d(TAG, "onDataChange: " + cartListArrayList.size());
+                    if (cartListArrayList.size() < 1) {
                         cartItemCount.setVisibility(View.GONE);
-                    }else{
+                    } else {
                         String cartCount = String.valueOf(cartListArrayList.size());
                         cartItemCount.setText(cartCount);
                     }
@@ -315,7 +313,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(OrderConfirmationActivity.this, "Your Product is added to Cart!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -643,7 +641,6 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         saveAddress = findViewById(R.id.saveBiodata);
         cartItemLay = findViewById(R.id.auctionNotificationAction);
         cartItemCount = findViewById(R.id.notificationCountTv);
-
 
 
     }

@@ -1,18 +1,17 @@
 package com.astronist.pups;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-
 import com.astronist.pups.Adapter.UserCartAdapter;
-import com.astronist.pups.Adapter.UserOrderAdapter;
-import com.astronist.pups.Model.Address;
 import com.astronist.pups.Model.CartList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +34,8 @@ public class CartItemListActivity extends AppCompatActivity {
     private LinearLayoutManager manager;
     public static final String TAG = "Cart";
     private ProgressBar progressBar;
+    private TextView grandAmount, grandUnit;
+    private int total, gTotal=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class CartItemListActivity extends AppCompatActivity {
         inItView();
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+        Log.d(TAG, "onCreate: " + user.getUid());
 
         manager = new LinearLayoutManager(CartItemListActivity.this, RecyclerView.VERTICAL, false);
         cartListRecView.setLayoutManager(manager);
@@ -66,8 +68,13 @@ public class CartItemListActivity extends AppCompatActivity {
                     CartList cartList = userSnapshot.getValue(CartList.class);
 
                     cartListArrayList.add(cartList);
-                    Log.d(TAG, "onDataChange: "+ cartListArrayList.size());
+
                 }
+
+                for(int i = 0; i<cartListArrayList.size(); i++){
+                    gTotal+= Integer.parseInt(cartListArrayList.get(i).getTotalPrice());;
+                }
+                Log.d(TAG, "onDataCheck: " +  gTotal);
                 cartAdapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
             }
@@ -82,5 +89,7 @@ public class CartItemListActivity extends AppCompatActivity {
     private void inItView() {
         cartListRecView = findViewById(R.id.cartInfoRecView);
         progressBar = findViewById(R.id.progressBar);
+        grandAmount = findViewById(R.id.grandItemAmount);
+        grandUnit = findViewById(R.id.grandUnit);
     }
 }

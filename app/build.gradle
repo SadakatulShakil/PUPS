@@ -13,6 +13,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,4 +62,8 @@ dependencies {
     ///////slider uses//////
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    ////Sqlite////////
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
 }

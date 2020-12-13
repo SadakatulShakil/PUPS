@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.astronist.pups.Model.CartList;
-import com.astronist.pups.Model.Order;
 import com.astronist.pups.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserCartAdapter extends RecyclerView.Adapter<UserCartAdapter.viewHolder> {
     private Context context;

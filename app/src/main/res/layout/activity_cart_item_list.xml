@@ -30,14 +30,62 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartInfoRecView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
         android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/grandItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/grandItem"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/border_round_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/grandTotalItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:text="Grand Total ="
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/grandItemAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10,0000"
+            android:gravity="end"
+            android:layout_margin="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/grandUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="৳"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black" />
+    </LinearLayout>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -46,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="Place Your Order"
