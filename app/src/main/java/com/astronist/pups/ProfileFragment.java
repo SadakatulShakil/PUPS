@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment {
     private Context context;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-    private TextView logOutBt;
+    private TextView logOutBt, editProfile;
     private ImageView profileImage;
     private TextView userName, userEmail, userPhone, userLocation;
     private GoogleSignInAccount googleSignInAccount;
@@ -103,6 +103,13 @@ public class ProfileFragment extends Fragment {
         });
 
         getAuthUserData();
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void getAuthUserData() {
@@ -144,5 +151,6 @@ public class ProfileFragment extends Fragment {
         userPhone = view.findViewById(R.id.userContact);
         profileImage = view.findViewById(R.id.profileImage);
         userLocation = view.findViewById(R.id.userLocation);
+        editProfile = view.findViewById(R.id.profileEditBt);
     }
 }

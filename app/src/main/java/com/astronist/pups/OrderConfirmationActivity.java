@@ -66,6 +66,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     private RelativeLayout cartItemLay;
     private ArrayList<CartList> cartListArrayList = new ArrayList<>();
     private TextView cartItemCount;
+    private String deliveryStatus = "Success";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,9 +230,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
 
                     cartListArrayList.add(cartList);
                     Log.d(TAG, "onDataChange: " + cartListArrayList.size());
-                    if (cartListArrayList.size() < 1) {
-                        cartItemCount.setVisibility(View.GONE);
-                    } else {
+                    if(cartListArrayList.size()>=1){
+                        cartItemCount.setVisibility(View.VISIBLE);
                         String cartCount = String.valueOf(cartListArrayList.size());
                         cartItemCount.setText(cartCount);
                     }
@@ -307,7 +307,7 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         String pushId = cartReference.push().getKey();
 
         CartList cartList = new CartList(userId, pushId, currentTime, currentDate, uName, uPhone,
-                location, title, unit, currency, quantity, amount, mainType);
+                location, title, unit, currency, quantity, amount, mainType, deliveryStatus);
 
         cartReference.child(userId).child(pushId).setValue(cartList).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -582,13 +582,16 @@ public class OrderConfirmationActivity extends AppCompatActivity {
             quantity = loosieQuantity;
             unit = "Loosie";
         }
-        order = new Order(userId, pushId, currentTime, currentDate, uName, uPhone, location, title, unit, currency, quantity, amount, mainType);
+        order = new Order(userId, pushId, currentTime, currentDate, uName, uPhone, location, title, unit, currency, quantity, amount, mainType, deliveryStatus);
 
         orderReference.child(pushId).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(OrderConfirmationActivity.this, "Your Order Submit Successfully !", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OrderConfirmationActivity.this, OrderSuccessfulActivity.class);
+                startActivity(intent);
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

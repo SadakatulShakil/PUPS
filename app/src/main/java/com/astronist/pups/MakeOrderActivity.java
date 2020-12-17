@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -92,6 +93,14 @@ public class MakeOrderActivity extends AppCompatActivity {
 
         getCartItemCount();
 
+        cartItemLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MakeOrderActivity.this, CartItemListActivity.class);
+                startActivity(intent1);
+            }
+        });
+
     }
 
     private void getCartItemCount() {
@@ -107,9 +116,8 @@ public class MakeOrderActivity extends AppCompatActivity {
 
                     cartListArrayList.add(cartList);
                     Log.d(TAG, "onDataChange: "+ cartListArrayList.size());
-                    if(cartListArrayList.size()<1){
-                        cartItemCount.setVisibility(View.GONE);
-                    }else{
+                    if(cartListArrayList.size()>=1){
+                        cartItemCount.setVisibility(View.VISIBLE);
                         String cartCount = String.valueOf(cartListArrayList.size());
                         cartItemCount.setText(cartCount);
                     }

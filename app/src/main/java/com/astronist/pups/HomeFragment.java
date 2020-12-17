@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,13 +76,23 @@ public class HomeFragment extends Fragment {
         inItView(view);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-        progressBar.setVisibility(View.VISIBLE);
+       // progressBar.setVisibility(View.VISIBLE);
         manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         orderListRecView.setLayoutManager(manager);
         staggeredGridAdapter = new StaggeredGridAdapter(context, mOrderArrayList);
         orderListRecView.setAdapter(staggeredGridAdapter);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getAllOrderDetails();
+                staggeredGridAdapter.showShimmer = false;
+                //staggeredGridAdapter.notifyDataSetChanged();
+            }
+        },2000);
+
         getCartItemCount();
-        getAllOrderDetails();
+
 
         orderTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +125,8 @@ public class HomeFragment extends Fragment {
 
                     cartListArrayList.add(cartList);
                     Log.d(TAG, "onDataChange: "+ cartListArrayList.size());
-                    if(cartListArrayList.size()<1){
-                        cartItemCount.setVisibility(View.GONE);
-                    }else{
+                    if(cartListArrayList.size()>=1){
+                        cartItemCount.setVisibility(View.VISIBLE);
                         String cartCount = String.valueOf(cartListArrayList.size());
                         cartItemCount.setText(cartCount);
                     }

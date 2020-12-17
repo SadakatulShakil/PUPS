@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,7 @@ public class OrderHistoryFragment extends Fragment {
         inItView(view);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
         getCartItemCount();
         Calendar calendar = Calendar.getInstance();
         currentMonthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
@@ -83,6 +84,15 @@ public class OrderHistoryFragment extends Fragment {
         orderListRecView.setLayoutManager(manager);
         userOrderAdapter = new UserOrderAdapter(context, mOrderArrayList, currentMonthName);
         orderListRecView.setAdapter(userOrderAdapter);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getOrderDetails();
+                userOrderAdapter.showShimmer = false;
+                //staggeredGridAdapter.notifyDataSetChanged();
+            }
+        },2000);
 
         cartItemLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +102,7 @@ public class OrderHistoryFragment extends Fragment {
             }
         });
 
-        getOrderDetails();
+
 
     }
 
@@ -109,9 +119,8 @@ public class OrderHistoryFragment extends Fragment {
 
                     cartListArrayList.add(cartList);
                     Log.d(TAG, "onDataChange: "+ cartListArrayList.size());
-                    if(cartListArrayList.size()<1){
-                        cartItemCount.setVisibility(View.GONE);
-                    }else{
+                    if(cartListArrayList.size()>=1){
+                        cartItemCount.setVisibility(View.VISIBLE);
                         String cartCount = String.valueOf(cartListArrayList.size());
                         cartItemCount.setText(cartCount);
                     }

@@ -16,6 +16,7 @@ public class Order implements Serializable {
     private String productQuantity;
     private String totalPrice;
     private String category;
+    private String deliveryStatus;
     public Order() {
     }
 
@@ -23,7 +24,8 @@ public class Order implements Serializable {
                  String date, String name, String contact,
                  String location, String productName,
                  String unit, String currency,
-                 String productQuantity, String totalPrice, String category) {
+                 String productQuantity, String totalPrice,
+                 String category, String deliveryStatus) {
         this.userId = userId;
         this.pushId = pushId;
         this.time = time;
@@ -37,6 +39,7 @@ public class Order implements Serializable {
         this.productQuantity = productQuantity;
         this.totalPrice = totalPrice;
         this.category = category;
+        this.deliveryStatus = deliveryStatus;
     }
 
     public String getUserId() {
@@ -141,5 +144,13 @@ public class Order implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getDeliveryStatus() {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus(String deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
     }
 }
